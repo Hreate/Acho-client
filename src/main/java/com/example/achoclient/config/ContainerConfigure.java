@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 @Configuration
 public class ContainerConfigure {
-    @Bean
+    @Bean(name = "serviceMap")
     public HashMap<String, ServiceInfo[]> createMap() {
         return new HashMap<String, ServiceInfo[]>();
     }

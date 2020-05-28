@@ -7,6 +7,7 @@ import com.example.achoclient.pojo.ServiceInfo;
 import com.example.achoclient.properties.ServerInfoProperties;
 import com.example.achoclient.properties.ServiceInfoProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class DefaultListener implements CommandLineRunner {
     private HashMap<String, ServiceInfo[]> serviceMap;
 
     @Autowired
-    private DefaultListener(ServerInfoProperties serverInfoProperties, ServiceInfoProperties serviceInfoProperties, RestTemplate restTemplate, Result result, HashMap<String, ServiceInfo[]> serviceMap) {
+    private DefaultListener(ServerInfoProperties serverInfoProperties, ServiceInfoProperties serviceInfoProperties, RestTemplate restTemplate, Result result,@Qualifier("serviceMap") HashMap<String, ServiceInfo[]> serviceMap) {
         this.serverInfoProperties = serverInfoProperties;
         this.serviceInfoProperties = serviceInfoProperties;
         this.restTemplate = restTemplate;

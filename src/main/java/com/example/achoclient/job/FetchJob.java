@@ -1,6 +1,7 @@
 package com.example.achoclient.job;
 
 import com.alibaba.fastjson.JSON;
+import com.example.achoclient.pojo.ServiceInfo;
 import com.example.achoclient.properties.ServerInfoProperties;
 import com.example.achoclient.properties.ServiceInfoProperties;
 import org.quartz.Job;
@@ -22,10 +23,10 @@ public class FetchJob implements Job {
             ApplicationContext applicationContext = (ApplicationContext) jobExecutionContext.getScheduler().getContext().get("applicationContext");
             RestTemplate restTemplate = applicationContext.getBean(RestTemplate.class);
             ServerInfoProperties serverInfoProperties = applicationContext.getBean(ServerInfoProperties.class);
-            HashMap serviceMap = applicationContext.getBean(HashMap.class);
+            HashMap<String, ServiceInfo[]> map = (HashMap<String, ServiceInfo[]>) applicationContext.getBean("serviceMap");
             String servicesInfo = restTemplate.getForObject(serverInfoProperties.serverUrl + "/fetch", String.class);
-            serviceMap = JSON.parseObject(servicesInfo, HashMap.class);
-            System.out.println("定时拉取的服务为：" + serviceMap);
+            map = JSON.parseObject(servicesInfo, HashMap.class);
+            System.out.println("定时拉取的服务为：" + map);
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
